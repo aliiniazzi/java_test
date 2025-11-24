@@ -70,6 +70,16 @@ public class MathOperationTest {
             Assertions.assertEquals(2, divideResult);
         }
 
+
+        @Test
+        void divide_Result_Should_Be_Greater_Than_Zero_When_Numbers_Are_Positive(){
+            // When
+            double divideResult = mathOperation.divide(numberOne, numberTwo);
+
+            // Then
+            Assertions.assertTrue(divideResult > 0 , "result should be greater than zero") ;
+        }
+
         @Test
         @DisplayName("Should throw ArithmeticException when dividing by zero")
         void shouldThrowArithmeticExceptionWhenDivideByZero() {
@@ -88,6 +98,16 @@ public class MathOperationTest {
         void shouldReturnRemainder(){
             Assertions.assertEquals(0 , mathOperation.modulus(numberOne , numberTwo));
         }
+    }
+
+    @Test
+    void calculateAllShouldReturnCorrectArray(){
+        // When
+        double[] actual = mathOperation.calculateAll(numberOne , numberTwo);
+        double[] expected  = {15 , 5 , 50 , 2};
+
+        // Then
+        Assertions.assertArrayEquals(expected , actual);
     }
 
 

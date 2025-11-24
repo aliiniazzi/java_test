@@ -23,4 +23,13 @@ public class MathOperation {
          // TODO -> create operation for return remainder of division
          return 0.0;
     }
+
+    public double[] calculateAll(double numberOne, double numberTwo){
+         return new double[]{
+                 add(numberOne , numberTwo),
+                 subtraction(numberOne, numberTwo),
+                 multiply(numberOne,numberTwo),
+                 divide(numberOne , numberTwo)
+         };
+    }
 }
