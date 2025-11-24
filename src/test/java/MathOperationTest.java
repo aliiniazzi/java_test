@@ -1,57 +1,72 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MathOperationTest {
 
-    MathOperation mathOperation;
+
+    private double numberOne = 10;
+    private double numberTwo = 5;
+    private MathOperation mathOperation;
 
     @BeforeAll
-    void setup(){
+    void setup() {
         mathOperation = new MathOperation();
     }
 
-    // without instance
-    @Test
-    void ShouldThrowZeroException(){
-        // Given
-        int numberOne = 24;
-        int numberTwo = 0;
 
-        // When
-        // ! int result = numberOne / numberTwo;
+    @Nested
+    class AddSubTest {
 
-        // When + Then
-        Assertions.assertThrows(ArithmeticException.class , () -> {
-            int result = numberOne / numberTwo;
-        });
+        @Test
+        void shouldAddNumbersCorrectly() {
+            // When
+            double addResult = mathOperation.add(numberOne, numberTwo);
+
+            // Then
+            Assertions.assertEquals(15 , addResult);
+        }
+
+        @Test
+        void shouldSubtractNumbersCorrectly(){
+            // When
+            double subtractionResult = mathOperation.subtraction(numberOne, numberTwo);
+
+            // Then
+            Assertions.assertEquals(5 , subtractionResult);
+        }
     }
 
-    // with instance
-    @Test
-    void shouldCalculateBasicOperationsCorrectly(){
+    @Nested
+    class MulDivTests{
 
-        // Given
-        double numberOne = 10;
-        double numberTwo = 5;
+        @Test
+        void shouldMultiplyNumbersCorrectly() {
+            // When
+            double multiplyResult = mathOperation.multiply(numberOne, numberTwo);
 
-        // When
-        double addResult = mathOperation.add(numberOne , numberTwo);
-        double subtractionResult = mathOperation.subtraction(numberOne , numberTwo);
-        double multiplyResult = mathOperation.multiply(numberOne , numberTwo);
-        double divideResult = mathOperation.divide(numberOne , numberTwo);
+            // Then
+            Assertions.assertEquals(50 , multiplyResult);
+        }
 
+        @Test
+        void shouldDivideNumbersCorrectly(){
+            // When
+            double divideResult = mathOperation.divide(numberOne, numberTwo);
 
-        // Then
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(15 , addResult),
-                () -> Assertions.assertEquals(5 , subtractionResult),
-                () -> Assertions.assertEquals(50 , multiplyResult),
-                () -> Assertions.assertEquals(2 , divideResult)
-        );
+            // Then
+            Assertions.assertEquals(2 , divideResult);
+        }
+
+        @Test
+        void shouldThrowArithmeticExceptionWhenDivideByZero(){
+            // When + Then
+            Assertions.assertThrows(ArithmeticException.class , () -> {
+                mathOperation.divide(numberOne , 0);
+            });
+        }
     }
+
+
 
 
 
