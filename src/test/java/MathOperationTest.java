@@ -4,8 +4,8 @@ import org.junit.jupiter.api.*;
 public class MathOperationTest {
 
 
-    private double numberOne = 10;
-    private double numberTwo = 5;
+    private final double numberOne = 10;
+    private final double numberTwo = 5;
     private MathOperation mathOperation;
 
     @BeforeAll
@@ -14,8 +14,16 @@ public class MathOperationTest {
     }
 
 
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS) // one creation object for all test
     @Nested
     class AddSubTest {
+
+        // ! with default lifecycle this constructor was executed for each test (2times)
+        AddSubTest(){
+            System.out.println("from AddSubTestConstructor");
+        }
+
+
 
         @Test
         void shouldAddNumbersCorrectly() {
@@ -23,21 +31,22 @@ public class MathOperationTest {
             double addResult = mathOperation.add(numberOne, numberTwo);
 
             // Then
-            Assertions.assertEquals(15 , addResult);
+            Assertions.assertEquals(15, addResult);
         }
 
         @Test
-        void shouldSubtractNumbersCorrectly(){
+        void shouldSubtractNumbersCorrectly() {
             // When
             double subtractionResult = mathOperation.subtraction(numberOne, numberTwo);
 
             // Then
-            Assertions.assertEquals(5 , subtractionResult);
+            Assertions.assertEquals(5, subtractionResult);
         }
     }
 
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS) // one creation object for all test
     @Nested
-    class MulDivTests{
+    class MulDivTests {
 
         @Test
         void shouldMultiplyNumbersCorrectly() {
@@ -45,29 +54,26 @@ public class MathOperationTest {
             double multiplyResult = mathOperation.multiply(numberOne, numberTwo);
 
             // Then
-            Assertions.assertEquals(50 , multiplyResult);
+            Assertions.assertEquals(50, multiplyResult);
         }
 
         @Test
-        void shouldDivideNumbersCorrectly(){
+        void shouldDivideNumbersCorrectly() {
             // When
             double divideResult = mathOperation.divide(numberOne, numberTwo);
 
             // Then
-            Assertions.assertEquals(2 , divideResult);
+            Assertions.assertEquals(2, divideResult);
         }
 
         @Test
-        void shouldThrowArithmeticExceptionWhenDivideByZero(){
+        void shouldThrowArithmeticExceptionWhenDivideByZero() {
             // When + Then
-            Assertions.assertThrows(ArithmeticException.class , () -> {
-                mathOperation.divide(numberOne , 0);
+            Assertions.assertThrows(ArithmeticException.class, () -> {
+                mathOperation.divide(numberOne, 0);
             });
         }
     }
-
-
-
 
 
 }
