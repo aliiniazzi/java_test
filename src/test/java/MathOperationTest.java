@@ -48,6 +48,7 @@ public class MathOperationTest {
 
     @TestInstance(TestInstance.Lifecycle.PER_CLASS) // one creation object for all test
     @DisplayName("Multiplication and Division operation tests from MathOperation_Object")
+    @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
     @Nested
     class MulDivTests {
 
@@ -61,7 +62,7 @@ public class MathOperationTest {
         }
 
         @Test
-        void shouldDivideNumbersCorrectly() {
+        void should_Divide_Numbers_Correctly() {
             // When
             double divideResult = mathOperation.divide(numberOne, numberTwo);
 
