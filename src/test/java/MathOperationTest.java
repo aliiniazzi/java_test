@@ -79,5 +79,16 @@ public class MathOperationTest {
         }
     }
 
+    @Nested
+    @DisplayName("modulus and cosine operation tests from MathOperation_Object")
+    @Disabled("modulus and cosine operation not implemented yet")
+    class AdvanceOperationTest{
+
+        @Test
+        void shouldReturnRemainder(){
+            Assertions.assertEquals(0 , mathOperation.modulus(numberOne , numberTwo));
+        }
+    }
+
 
 }

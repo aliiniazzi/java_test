@@ -19,4 +19,8 @@ public class MathOperation {
          return  numberOne / numberTwo;
      }
 
+    public double modulus(double numberOne, double numberTwo) {
+         // TODO -> create operation for return remainder of division
+         return 0.0;
+    }
 }
