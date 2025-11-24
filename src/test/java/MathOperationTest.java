@@ -15,6 +15,7 @@ public class MathOperationTest {
 
 
     @TestInstance(TestInstance.Lifecycle.PER_CLASS) // one creation object for all test
+    @DisplayName("addition and subtraction operation tests from MathOperation_Object")
     @Nested
     class AddSubTest {
 
@@ -26,6 +27,7 @@ public class MathOperationTest {
 
 
         @Test
+        @DisplayName("Should correctly add two numbers")
         void shouldAddNumbersCorrectly() {
             // When
             double addResult = mathOperation.add(numberOne, numberTwo);
@@ -45,6 +47,7 @@ public class MathOperationTest {
     }
 
     @TestInstance(TestInstance.Lifecycle.PER_CLASS) // one creation object for all test
+    @DisplayName("Multiplication and Division operation tests from MathOperation_Object")
     @Nested
     class MulDivTests {
 
@@ -67,11 +70,11 @@ public class MathOperationTest {
         }
 
         @Test
+        @DisplayName("Should throw ArithmeticException when dividing by zero")
         void shouldThrowArithmeticExceptionWhenDivideByZero() {
             // When + Then
-            Assertions.assertThrows(ArithmeticException.class, () -> {
-                mathOperation.divide(numberOne, 0);
-            });
+            Assertions.assertThrows(ArithmeticException.class, () -> mathOperation.divide(numberOne, 0),
+                    "Division by zero should throw ArithmeticException");
         }
     }
 
