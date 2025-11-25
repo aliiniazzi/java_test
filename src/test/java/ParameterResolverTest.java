@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -88,6 +90,20 @@ public class ParameterResolverTest {
         // log with RepetitionInfo for each repetition
         System.out.println(info.getCurrentRepetition() + " of " + info.getTotalRepetitions() + " -> " + result);
 
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({"2 , 2 , 4" , "5 , 10 , 15" , "5 , 7 , 12"})
+    void testAdditionWithCsv(double numberOne , double numberTwo , double expected){
+        // Given
+        MathOperation mathOperation = new MathOperation();
+
+        // When
+        double actual = mathOperation.add(numberOne , numberTwo);
+
+        // Then
+        Assertions.assertEquals(expected , actual);
     }
 
 
