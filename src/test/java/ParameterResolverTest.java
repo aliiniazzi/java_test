@@ -1,4 +1,13 @@
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ParameterResolverTest {
 
@@ -33,5 +42,35 @@ public class ParameterResolverTest {
         // Final Report
         testReporter.publishEntry("status", "Test completed successfully");
     }
+
+
+    @Test
+    void shouldCreateTempDirectory(@TempDir Path tempDir) throws IOException {
+        // Given
+        MathOperation math = new MathOperation();
+        double numberOne = 10;
+        double numberTwo = 5;
+
+
+        // When
+        double result = math.add(numberOne, numberTwo);
+        Path outFile = tempDir.resolve("result.txt");
+        File resultFile = outFile.toFile();
+
+        try (FileOutputStream fos = new FileOutputStream(resultFile);){
+            String text = "Result = " + Double.toString(result);
+            fos.write(text.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Then
+        Assertions.assertTrue(Files.exists(outFile));
+        String expected = "Result = 15.0";
+        String actual = new String(Files.readAllBytes(outFile) , StandardCharsets.UTF_8);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
 
 }
