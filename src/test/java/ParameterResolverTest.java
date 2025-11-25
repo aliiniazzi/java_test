@@ -2,7 +2,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -57,8 +56,8 @@ public class ParameterResolverTest {
         Path outFile = tempDir.resolve("result.txt");
         File resultFile = outFile.toFile();
 
-        try (FileOutputStream fos = new FileOutputStream(resultFile);){
-            String text = "Result = " + Double.toString(result);
+        try (FileOutputStream fos = new FileOutputStream(resultFile)){
+            String text = "Result = " + result;
             fos.write(text.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -70,6 +69,25 @@ public class ParameterResolverTest {
         String actual = new String(Files.readAllBytes(outFile) , StandardCharsets.UTF_8);
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @RepeatedTest(10)
+    void randomNumberShouldBeBetween10And100(RepetitionInfo info){
+
+        // Given
+        double min = 10;
+        double max = 100;
+
+        // When
+        double result = min + Math.random() * (max - min);
+
+
+        // Then
+        Assertions.assertTrue(result > min && result < max);
+
+        // log with RepetitionInfo for each repetition
+        System.out.println(info.getCurrentRepetition() + " of " + info.getTotalRepetitions() + " -> " + result);
+
     }
 
 
